@@ -1,4 +1,7 @@
-package main
+//go:build ignore
+// +build ignore
+
+package day_01
 
 import "testing"
 
