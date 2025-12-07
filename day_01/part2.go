@@ -2,16 +2,15 @@ package day_01
 
 import (
 	"bufio"
-	"fmt"
+	"errors"
 	"os"
 	"strconv"
 )
 
-func Part1(filename string) {
+func Part2(filename string) (int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
-		fmt.Println(err)
-		return
+		return 0, err
 	}
 	defer file.Close()
 
@@ -24,59 +23,7 @@ func Part1(filename string) {
 		direction, diffStr := line[0], line[1:]
 		diff, err := strconv.Atoi(diffStr)
 		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		switch direction {
-		case 'L':
-			pointer = handleOverflow(pointer - diff)
-		case 'R':
-			pointer = handleOverflow(pointer + diff)
-		default:
-			fmt.Println("Invalid direction")
-			return
-		}
-		if pointer > 99 || pointer < 0 {
-			fmt.Println("Invalid pointer", pointer)
-			return
-		}
-		if pointer == 0 {
-			zeroCounter++
-		}
-	}
-
-	fmt.Println(zeroCounter)
-}
-
-func handleOverflow(pointer int) int {
-	if pointer < 0 {
-		return handleOverflow(100 + pointer%100)
-	}
-	if pointer > 99 {
-		return pointer % 100
-	}
-	return pointer
-}
-
-func Part2(filename string) {
-	file, err := os.Open(filename)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer file.Close()
-
-	pointer := 50
-	zeroCounter := 0
-	scanner := bufio.NewScanner(file)
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		direction, diffStr := line[0], line[1:]
-		diff, err := strconv.Atoi(diffStr)
-		if err != nil {
-			fmt.Println(err)
-			return
+			return 0, err
 		}
 		var p, zeros int
 		switch direction {
@@ -85,22 +32,20 @@ func Part2(filename string) {
 		case 'R':
 			p, zeros = CountZeros(pointer, diff)
 		default:
-			fmt.Println("Invalid direction")
-			return
+			return 0, errors.New("invalid direction")
 		}
 		println(pointer, line, p, zeros, zeroCounter)
 		pointer = p
 		zeroCounter += zeros
 		if pointer > 99 || pointer < 0 {
-			fmt.Println("Invalid pointer", pointer)
-			return
+			return 0, errors.New("invalid pointer")
 		}
 		if pointer == 0 {
 			zeroCounter++
 		}
 	}
 
-	fmt.Println(zeroCounter)
+	return zeroCounter, nil
 }
 
 func CountZeros(oldPointer int, diff int) (int, int) {
