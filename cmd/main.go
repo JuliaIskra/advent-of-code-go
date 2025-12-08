@@ -36,15 +36,17 @@ func main() {
 		case "2":
 			res, err = day_01.Part2(inputPath)
 		default:
-			fmt.Println("Invalid part for day 1. Use 1 or 2.")
+			fmt.Println("Invalid part. Use 1 or 2.")
 			os.Exit(2)
 		}
 	case 8:
 		switch part {
 		case "1":
 			res, err = day_08.Part1(inputPath)
+		case "2":
+			res, err = day_08.Part2(inputPath)
 		default:
-			fmt.Println("Invalid part for day 1. Use 1 or 2.")
+			fmt.Println("Invalid part. Use 1 or 2.")
 			os.Exit(2)
 		}
 	default:
