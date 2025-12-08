@@ -2,20 +2,56 @@ package main
 
 import (
 	"advent-of-code-go/day_01"
+	"advent-of-code-go/day_08"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 func main() {
-	//filename := os.Args[1]
-	res, err := day_01.Part1("day_01/input.txt")
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	if len(os.Args) < 3 {
+		fmt.Println("Usage: go run ./cmd <day> <part>")
+		os.Exit(2)
 	}
-	fmt.Println(res)
 
-	res, err = day_01.Part2("day_01/input.txt")
+	dayStr := os.Args[1]
+	part := os.Args[2]
+
+	dayNum, err := strconv.Atoi(dayStr)
+	if err != nil || dayNum <= 0 {
+		fmt.Println("Invalid day, expected a positive integer")
+		os.Exit(2)
+	}
+
+	// Normalize folder name like day_01, day_02
+	inputPath := fmt.Sprintf("day_%02d/input.txt", dayNum)
+
+	var res int
+
+	switch dayNum {
+	case 1:
+		switch part {
+		case "1":
+			res, err = day_01.Part1(inputPath)
+		case "2":
+			res, err = day_01.Part2(inputPath)
+		default:
+			fmt.Println("Invalid part for day 1. Use 1 or 2.")
+			os.Exit(2)
+		}
+	case 8:
+		switch part {
+		case "1":
+			res, err = day_08.Part1(inputPath)
+		default:
+			fmt.Println("Invalid part for day 1. Use 1 or 2.")
+			os.Exit(2)
+		}
+	default:
+		fmt.Printf("Day %d is not implemented yet.\n", dayNum)
+		os.Exit(2)
+	}
+
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
