@@ -4,6 +4,7 @@ import (
 	"advent-of-code-go/day_01"
 	"advent-of-code-go/day_02"
 	"advent-of-code-go/day_08"
+	"advent-of-code-go/day_10"
 	"fmt"
 	"os"
 	"strconv"
@@ -56,6 +57,14 @@ func main() {
 			res, err = day_08.Part1(inputPath)
 		case "2":
 			res, err = day_08.Part2(inputPath)
+		default:
+			fmt.Println("Invalid part. Use 1 or 2.")
+			os.Exit(2)
+		}
+	case 10:
+		switch part {
+		case "1":
+			res, err = day_10.Part1(inputPath)
 		default:
 			fmt.Println("Invalid part. Use 1 or 2.")
 			os.Exit(2)
