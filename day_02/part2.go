@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Part1(filename string) (int, error) {
+func Part2(filename string) (int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return 0, err
@@ -30,7 +30,7 @@ func Part1(filename string) (int, error) {
 	sum := 0
 	for _, r := range ids {
 		for id := r[0]; id <= r[1]; id++ {
-			if hasEqualsHalves(id) {
+			if hasDuplicatedSequence(id) {
 				sum += id
 			}
 		}
@@ -39,8 +39,21 @@ func Part1(filename string) (int, error) {
 	return sum, nil
 }
 
-func hasEqualsHalves(id int) bool {
+func hasDuplicatedSequence(id int) bool {
 	idStr := strconv.Itoa(id)
-	first, rest := idStr[0:len(idStr)/2], idStr[len(idStr)/2:]
-	return rest == first
+	start := 1
+	isRepeated := false
+	for start < len(idStr) {
+		repeat := idStr[0:start]
+		rest := idStr[start:]
+		repeated := strings.Repeat(repeat, len(rest)/len(repeat))
+		if rest == repeated {
+			isRepeated = true
+			break
+		} else {
+			start = start + 1
+			isRepeated = false
+		}
+	}
+	return isRepeated
 }

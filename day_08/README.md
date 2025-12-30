@@ -10,5 +10,5 @@ go run cmd/main.go 2 1
 ```bash
 # test day 2
 cd day_02
-got test
+go test
 ```
