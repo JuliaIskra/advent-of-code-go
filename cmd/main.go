@@ -67,8 +67,8 @@ func main() {
 		switch part {
 		case "1":
 			res, err = day_04.Part1(inputPath)
-		//case "2":
-		//	res, err = day_04.Part2(inputPath)
+		case "2":
+			res, err = day_04.Part2(inputPath)
 		default:
 			fmt.Println("Invalid part. Use 1 or 2.")
 			os.Exit(2)
