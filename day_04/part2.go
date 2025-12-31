@@ -26,7 +26,7 @@ func Part2(filename string) (int, error) {
 	overall := 0
 	removable := true
 	for removable {
-		accessibleRolls := make(map[Coord]bool)
+		accessibleRolls := make(map[Coord]struct{})
 
 		// count and remember accessible rolls
 		for row := 0; row < len(rolls); row++ {
@@ -35,16 +35,16 @@ func Part2(filename string) (int, error) {
 					continue
 				}
 				nCoords := getNeighbours(row, col)
-				nRolls := make(map[Coord]bool)
+				nRolls := make(map[Coord]struct{})
 				for _, nCoord := range nCoords {
 					nRow := nCoord[0]
 					nCol := nCoord[1]
 					if isInBounds(nRow, len(rolls)) && isInBounds(nCol, len(rolls[row])) && rolls[nRow][nCol] == "@" {
-						nRolls[Coord{nRow, nCol}] = true
+						nRolls[Coord{nRow, nCol}] = struct{}{}
 					}
 				}
 				if len(nRolls) < 4 {
-					accessibleRolls[Coord{row, col}] = true
+					accessibleRolls[Coord{row, col}] = struct{}{}
 				}
 			}
 		}
