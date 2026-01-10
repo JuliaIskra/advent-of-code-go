@@ -32,7 +32,7 @@ func Part1(filename string) (int, error) {
 		}
 
 		if !dbBreak {
-			freshIds = append(freshIds, collectFreshIds(line))
+			freshIds = append(freshIds, parseRange(line))
 		} else {
 			id, _ := strconv.Atoi(line)
 			for _, r := range freshIds {
@@ -47,7 +47,7 @@ func Part1(filename string) (int, error) {
 	return availableCount, nil
 }
 
-func collectFreshIds(line string) Range {
+func parseRange(line string) Range {
 	ns := strings.Split(line, "-")
 	start, _ := strconv.Atoi(ns[0])
 	end, _ := strconv.Atoi(ns[1])
